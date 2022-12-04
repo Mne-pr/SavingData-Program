@@ -65,30 +65,43 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddT_Or_CName_Main.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddT_Or_CName_Main.Designer.cs">
+      <DependentUpon>AddT_Or_CName_Main.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddColumn_Sub.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddColumn_Sub.Designer.cs">
+      <DependentUpon>AddColumn_Sub.cs</DependentUpon>
+    </Compile>
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
-    <Compile Include="AddData.cs">
+    <Compile Include="AddData_Sub.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddData.Designer.cs">
-      <DependentUpon>AddData.cs</DependentUpon>
+    <Compile Include="AddData_Sub.Designer.cs">
+      <DependentUpon>AddData_Sub.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Settings1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Settings1.settings</DependentUpon>
-    </Compile>
+    <EmbeddedResource Include="AddT_Or_CName_Main.resx">
+      <DependentUpon>AddT_Or_CName_Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddColumn_Sub.resx">
+      <DependentUpon>AddColumn_Sub.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AddData.resx">
-      <DependentUpon>AddData.cs</DependentUpon>
+    <EmbeddedResource Include="AddData_Sub.resx">
+      <DependentUpon>AddData_Sub.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -109,10 +122,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="Settings1.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings1.Designer.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

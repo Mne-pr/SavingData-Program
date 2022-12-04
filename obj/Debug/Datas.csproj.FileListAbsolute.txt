@@ -18,4 +18,6 @@ C:\Users\Hyunrak\Documents\GitHub\Datas\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\Hyunrak\Documents\GitHub\Datas\bin\Debug\System.Data.SQLite.xml
 C:\Users\Hyunrak\Documents\GitHub\Datas\obj\Debug\Datas.csproj.CopyComplete
 C:\Users\Hyunrak\Documents\GitHub\Datas\obj\Debug\Datas.Main.resources
-C:\Users\Hyunrak\Documents\GitHub\Datas\obj\Debug\Datas.AddData.resources
+C:\Users\Hyunrak\Documents\GitHub\Datas\obj\Debug\Datas.AddData_Sub.resources
+C:\Users\Hyunrak\Documents\GitHub\Datas\obj\Debug\Datas.AddT_Or_CName_Main.resources
+C:\Users\Hyunrak\Documents\GitHub\Datas\obj\Debug\Datas.AddColumn_Sub.resources

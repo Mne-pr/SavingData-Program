@@ -1,6 +1,6 @@
 ﻿namespace Datas
 {
-    partial class AddData
+    partial class AddData_Sub
     {
         /// <summary>
         /// Required designer variable.
