@@ -10,13 +10,17 @@ using System.Windows.Forms;
 
 namespace Datas
 {
-    public partial class AddColumn_Sub : Form
+    public partial class Sub_AddColumn : Form
     {
-        public AddColumn_Sub()
+        public Sub_AddColumn()
         {
             InitializeComponent();
         }
-
+        private void Sub_AddColumn_Load(object sender, EventArgs e)
+        {
+            this.Location = new Point(Owner.Location.X + Owner.Width / 2 - this.Width / 2,
+                Owner.Location.Y + Owner.Height / 2 - this.Height / 2);
+        }
         private void OK_Button_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.OK;
@@ -42,5 +46,6 @@ namespace Datas
                 toolStripStatusLabel1.Text = "TIP - 공백, 첫글자가 숫자 -> 생성불가";
             }
         }
+
     }
 }

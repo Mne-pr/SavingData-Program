@@ -28,27 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.addTable = new System.Windows.Forms.Button();
+            this.addTableBtn = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.MainPanel = new System.Windows.Forms.TableLayoutPanel();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.aboutMainStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.button1 = new System.Windows.Forms.Button();
+            this.toHomeBtn = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
-            this.listView1 = new System.Windows.Forms.ListView();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
+            this.addColumnBtn = new System.Windows.Forms.Button();
+            this.delColumnBtn = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
             this.MainButtonPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.changeTName = new System.Windows.Forms.Button();
-            this.delTable = new System.Windows.Forms.Button();
+            this.changeTNameBtn = new System.Windows.Forms.Button();
+            this.delTableBtn = new System.Windows.Forms.Button();
+            this.listView1 = new System.Windows.Forms.ListView();
             this.MainPanel.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -56,16 +56,16 @@
             this.MainButtonPanel.SuspendLayout();
             this.SuspendLayout();
             // 
-            // addTable
+            // addTableBtn
             // 
-            this.addTable.Location = new System.Drawing.Point(0, 0);
-            this.addTable.Margin = new System.Windows.Forms.Padding(0);
-            this.addTable.Name = "addTable";
-            this.addTable.Size = new System.Drawing.Size(105, 45);
-            this.addTable.TabIndex = 2;
-            this.addTable.Text = "테이블 추가";
-            this.addTable.UseVisualStyleBackColor = true;
-            this.addTable.Click += new System.EventHandler(this.addTable_Click);
+            this.addTableBtn.Location = new System.Drawing.Point(0, 0);
+            this.addTableBtn.Margin = new System.Windows.Forms.Padding(0);
+            this.addTableBtn.Name = "addTableBtn";
+            this.addTableBtn.Size = new System.Drawing.Size(105, 45);
+            this.addTableBtn.TabIndex = 2;
+            this.addTableBtn.Text = "테이블 추가";
+            this.addTableBtn.UseVisualStyleBackColor = true;
+            this.addTableBtn.Click += new System.EventHandler(this.addTableBtn_Click);
             // 
             // label1
             // 
@@ -90,9 +90,9 @@
             this.MainPanel.Controls.Add(this.label1, 0, 0);
             this.MainPanel.Controls.Add(this.statusStrip1, 0, 2);
             this.MainPanel.Controls.Add(this.tableLayoutPanel2, 1, 0);
-            this.MainPanel.Controls.Add(this.listView1, 1, 1);
             this.MainPanel.Controls.Add(this.tableLayoutPanel4, 2, 1);
             this.MainPanel.Controls.Add(this.MainButtonPanel, 0, 1);
+            this.MainPanel.Controls.Add(this.listView1, 1, 1);
             this.MainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MainPanel.Location = new System.Drawing.Point(0, 0);
             this.MainPanel.Name = "MainPanel";
@@ -107,17 +107,17 @@
             // 
             this.MainPanel.SetColumnSpan(this.statusStrip1, 3);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1});
+            this.aboutMainStatus});
             this.statusStrip1.Location = new System.Drawing.Point(0, 472);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(876, 22);
             this.statusStrip1.TabIndex = 5;
             // 
-            // toolStripStatusLabel1
+            // aboutMainStatus
             // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(31, 17);
-            this.toolStripStatusLabel1.Text = "상태";
+            this.aboutMainStatus.Name = "aboutMainStatus";
+            this.aboutMainStatus.Size = new System.Drawing.Size(31, 17);
+            this.aboutMainStatus.Text = "상태";
             // 
             // tableLayoutPanel2
             // 
@@ -128,7 +128,7 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 156F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 21F));
-            this.tableLayoutPanel2.Controls.Add(this.button1, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.toHomeBtn, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.button2, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.button3, 2, 0);
             this.tableLayoutPanel2.Controls.Add(this.button4, 3, 0);
@@ -150,16 +150,17 @@
             this.tableLayoutPanel2.TabIndex = 8;
             this.tableLayoutPanel2.Visible = false;
             // 
-            // button1
+            // toHomeBtn
             // 
-            this.button1.Location = new System.Drawing.Point(0, 0);
-            this.button1.Margin = new System.Windows.Forms.Padding(0);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(92, 21);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "목록으로";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.toHomeBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.toHomeBtn.Location = new System.Drawing.Point(0, 0);
+            this.toHomeBtn.Margin = new System.Windows.Forms.Padding(0);
+            this.toHomeBtn.Name = "toHomeBtn";
+            this.toHomeBtn.Size = new System.Drawing.Size(92, 21);
+            this.toHomeBtn.TabIndex = 0;
+            this.toHomeBtn.Text = "목록으로";
+            this.toHomeBtn.UseVisualStyleBackColor = true;
+            this.toHomeBtn.Click += new System.EventHandler(this.toHomeBtn_Click);
             // 
             // button2
             // 
@@ -191,24 +192,12 @@
             this.button4.Text = "저장";
             this.button4.UseVisualStyleBackColor = true;
             // 
-            // listView1
-            // 
-            this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(121, 30);
-            this.listView1.MultiSelect = false;
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(641, 438);
-            this.listView1.TabIndex = 3;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listView1_MouseDoubleClick);
-            // 
             // tableLayoutPanel4
             // 
             this.tableLayoutPanel4.ColumnCount = 1;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Controls.Add(this.button5, 0, 0);
-            this.tableLayoutPanel4.Controls.Add(this.button6, 0, 1);
+            this.tableLayoutPanel4.Controls.Add(this.addColumnBtn, 0, 0);
+            this.tableLayoutPanel4.Controls.Add(this.delColumnBtn, 0, 1);
             this.tableLayoutPanel4.Controls.Add(this.button7, 0, 2);
             this.tableLayoutPanel4.Controls.Add(this.button8, 0, 3);
             this.tableLayoutPanel4.Controls.Add(this.button10, 0, 5);
@@ -229,26 +218,27 @@
             this.tableLayoutPanel4.TabIndex = 10;
             this.tableLayoutPanel4.Visible = false;
             // 
-            // button5
+            // addColumnBtn
             // 
-            this.button5.Location = new System.Drawing.Point(0, 0);
-            this.button5.Margin = new System.Windows.Forms.Padding(0);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(105, 45);
-            this.button5.TabIndex = 0;
-            this.button5.Text = "기준 추가";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.addColumnBtn.Location = new System.Drawing.Point(0, 0);
+            this.addColumnBtn.Margin = new System.Windows.Forms.Padding(0);
+            this.addColumnBtn.Name = "addColumnBtn";
+            this.addColumnBtn.Size = new System.Drawing.Size(105, 45);
+            this.addColumnBtn.TabIndex = 0;
+            this.addColumnBtn.Text = "기준 추가";
+            this.addColumnBtn.UseVisualStyleBackColor = true;
+            this.addColumnBtn.Click += new System.EventHandler(this.addColumnBtn_Click);
             // 
-            // button6
+            // delColumnBtn
             // 
-            this.button6.Location = new System.Drawing.Point(0, 47);
-            this.button6.Margin = new System.Windows.Forms.Padding(0);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(105, 45);
-            this.button6.TabIndex = 1;
-            this.button6.Text = "기준 삭제";
-            this.button6.UseVisualStyleBackColor = true;
+            this.delColumnBtn.Location = new System.Drawing.Point(0, 47);
+            this.delColumnBtn.Margin = new System.Windows.Forms.Padding(0);
+            this.delColumnBtn.Name = "delColumnBtn";
+            this.delColumnBtn.Size = new System.Drawing.Size(105, 45);
+            this.delColumnBtn.TabIndex = 1;
+            this.delColumnBtn.Text = "기준 삭제";
+            this.delColumnBtn.UseVisualStyleBackColor = true;
+            this.delColumnBtn.Click += new System.EventHandler(this.delColumnBtn_Click);
             // 
             // button7
             // 
@@ -293,9 +283,9 @@
             // 
             this.MainButtonPanel.ColumnCount = 1;
             this.MainButtonPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.MainButtonPanel.Controls.Add(this.addTable, 0, 0);
-            this.MainButtonPanel.Controls.Add(this.changeTName, 0, 2);
-            this.MainButtonPanel.Controls.Add(this.delTable, 0, 1);
+            this.MainButtonPanel.Controls.Add(this.addTableBtn, 0, 0);
+            this.MainButtonPanel.Controls.Add(this.changeTNameBtn, 0, 2);
+            this.MainButtonPanel.Controls.Add(this.delTableBtn, 0, 1);
             this.MainButtonPanel.Location = new System.Drawing.Point(3, 30);
             this.MainButtonPanel.Name = "MainButtonPanel";
             this.MainButtonPanel.RowCount = 6;
@@ -308,27 +298,41 @@
             this.MainButtonPanel.Size = new System.Drawing.Size(105, 438);
             this.MainButtonPanel.TabIndex = 9;
             // 
-            // changeTName
+            // changeTNameBtn
             // 
-            this.changeTName.Location = new System.Drawing.Point(0, 94);
-            this.changeTName.Margin = new System.Windows.Forms.Padding(0);
-            this.changeTName.Name = "changeTName";
-            this.changeTName.Size = new System.Drawing.Size(105, 45);
-            this.changeTName.TabIndex = 7;
-            this.changeTName.Text = "이름 변경";
-            this.changeTName.UseVisualStyleBackColor = true;
-            this.changeTName.Click += new System.EventHandler(this.changeTName_Click);
+            this.changeTNameBtn.Location = new System.Drawing.Point(0, 94);
+            this.changeTNameBtn.Margin = new System.Windows.Forms.Padding(0);
+            this.changeTNameBtn.Name = "changeTNameBtn";
+            this.changeTNameBtn.Size = new System.Drawing.Size(105, 45);
+            this.changeTNameBtn.TabIndex = 7;
+            this.changeTNameBtn.Text = "이름 변경";
+            this.changeTNameBtn.UseVisualStyleBackColor = true;
+            this.changeTNameBtn.Click += new System.EventHandler(this.changeTNameBtn_Click);
             // 
-            // delTable
+            // delTableBtn
             // 
-            this.delTable.Location = new System.Drawing.Point(0, 47);
-            this.delTable.Margin = new System.Windows.Forms.Padding(0);
-            this.delTable.Name = "delTable";
-            this.delTable.Size = new System.Drawing.Size(105, 45);
-            this.delTable.TabIndex = 6;
-            this.delTable.Text = "테이블 삭제";
-            this.delTable.UseVisualStyleBackColor = true;
-            this.delTable.Click += new System.EventHandler(this.delTable_Click);
+            this.delTableBtn.Location = new System.Drawing.Point(0, 47);
+            this.delTableBtn.Margin = new System.Windows.Forms.Padding(0);
+            this.delTableBtn.Name = "delTableBtn";
+            this.delTableBtn.Size = new System.Drawing.Size(105, 45);
+            this.delTableBtn.TabIndex = 6;
+            this.delTableBtn.Text = "테이블 삭제";
+            this.delTableBtn.UseVisualStyleBackColor = true;
+            this.delTableBtn.Click += new System.EventHandler(this.delTableBtn_Click);
+            // 
+            // listView1
+            // 
+            this.listView1.HideSelection = false;
+            this.listView1.HoverSelection = true;
+            this.listView1.Location = new System.Drawing.Point(111, 31);
+            this.listView1.Margin = new System.Windows.Forms.Padding(0, 4, 0, 0);
+            this.listView1.MultiSelect = false;
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(654, 440);
+            this.listView1.TabIndex = 3;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listView1_ColumnClick);
+            this.listView1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listView1_MouseDoubleClick);
             // 
             // Main
             // 
@@ -336,9 +340,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(876, 494);
             this.Controls.Add(this.MainPanel);
+            this.Location = new System.Drawing.Point(100, 100);
             this.Name = "Main";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Main_Load);
+            this.LocationChanged += new System.EventHandler(this.Main_LocationChanged);
             this.MainPanel.ResumeLayout(false);
             this.MainPanel.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
@@ -353,23 +360,23 @@
 
         #endregion
 
-        private System.Windows.Forms.Button addTable;
+        private System.Windows.Forms.Button addTableBtn;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TableLayoutPanel MainPanel;
         private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.StatusStrip statusStrip1;
-        public System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
-        private System.Windows.Forms.Button delTable;
-        private System.Windows.Forms.Button changeTName;
+        public System.Windows.Forms.ToolStripStatusLabel aboutMainStatus;
+        private System.Windows.Forms.Button delTableBtn;
+        private System.Windows.Forms.Button changeTNameBtn;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.TableLayoutPanel MainButtonPanel;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button toHomeBtn;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button addColumnBtn;
+        private System.Windows.Forms.Button delColumnBtn;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Button button9;

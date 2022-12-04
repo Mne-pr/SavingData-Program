@@ -65,17 +65,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddT_Or_CName_Main.cs">
+    <Compile Include="Sub2_AskFinal.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddT_Or_CName_Main.Designer.cs">
-      <DependentUpon>AddT_Or_CName_Main.cs</DependentUpon>
+    <Compile Include="Sub2_AskFinal.Designer.cs">
+      <DependentUpon>Sub2_AskFinal.cs</DependentUpon>
     </Compile>
-    <Compile Include="AddColumn_Sub.cs">
+    <Compile Include="Main_AddT_Or_CName1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddColumn_Sub.Designer.cs">
-      <DependentUpon>AddColumn_Sub.cs</DependentUpon>
+    <Compile Include="Main_AddT_Or_CName1.Designer.cs">
+      <DependentUpon>Main_AddT_Or_CName1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Sub_AddColumn.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Sub_AddColumn.Designer.cs">
+      <DependentUpon>Sub_AddColumn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Sub_DelColumn.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Sub_DelColumn.Designer.cs">
+      <DependentUpon>Sub_DelColumn.cs</DependentUpon>
     </Compile>
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
@@ -83,25 +95,31 @@
     <Compile Include="Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
-    <Compile Include="AddData_Sub.cs">
+    <Compile Include="Sub_AddData.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddData_Sub.Designer.cs">
-      <DependentUpon>AddData_Sub.cs</DependentUpon>
+    <Compile Include="Sub_AddData.Designer.cs">
+      <DependentUpon>Sub_AddData.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="AddT_Or_CName_Main.resx">
-      <DependentUpon>AddT_Or_CName_Main.cs</DependentUpon>
+    <EmbeddedResource Include="Main_AddT_Or_CName1.resx">
+      <DependentUpon>Main_AddT_Or_CName1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AddColumn_Sub.resx">
-      <DependentUpon>AddColumn_Sub.cs</DependentUpon>
+    <EmbeddedResource Include="Sub2_AskFinal.resx">
+      <DependentUpon>Sub2_AskFinal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Sub_AddColumn.resx">
+      <DependentUpon>Sub_AddColumn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Sub_DelColumn.resx">
+      <DependentUpon>Sub_DelColumn.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AddData_Sub.resx">
-      <DependentUpon>AddData_Sub.cs</DependentUpon>
+    <EmbeddedResource Include="Sub_AddData.resx">
+      <DependentUpon>Sub_AddData.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
