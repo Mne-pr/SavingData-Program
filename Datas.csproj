@@ -71,11 +71,11 @@
     <Compile Include="Sub2_AskFinal.Designer.cs">
       <DependentUpon>Sub2_AskFinal.cs</DependentUpon>
     </Compile>
-    <Compile Include="Main_AddT_Or_CName1.cs">
+    <Compile Include="Main_AddT_Or_CName.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Main_AddT_Or_CName1.Designer.cs">
-      <DependentUpon>Main_AddT_Or_CName1.cs</DependentUpon>
+    <Compile Include="Main_AddT_Or_CName.Designer.cs">
+      <DependentUpon>Main_AddT_Or_CName.cs</DependentUpon>
     </Compile>
     <Compile Include="Sub_AddColumn.cs">
       <SubType>Form</SubType>
@@ -103,8 +103,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Main_AddT_Or_CName1.resx">
-      <DependentUpon>Main_AddT_Or_CName1.cs</DependentUpon>
+    <EmbeddedResource Include="Main_AddT_Or_CName.resx">
+      <DependentUpon>Main_AddT_Or_CName.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Sub2_AskFinal.resx">
       <DependentUpon>Sub2_AskFinal.cs</DependentUpon>

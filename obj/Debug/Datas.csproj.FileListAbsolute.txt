@@ -16,6 +16,6 @@ C:\Users\Hyunrak\Documents\GitHub\Datas\obj\Debug\Datas.exe
 C:\Users\Hyunrak\Documents\GitHub\Datas\obj\Debug\Datas.pdb
 C:\Users\Hyunrak\Documents\GitHub\Datas\obj\Debug\Datas.Sub_DelColumn.resources
 C:\Users\Hyunrak\Documents\GitHub\Datas\obj\Debug\Datas.Sub_AddData.resources
-C:\Users\Hyunrak\Documents\GitHub\Datas\obj\Debug\Datas.Main_AddT_Or_CName1.resources
 C:\Users\Hyunrak\Documents\GitHub\Datas\obj\Debug\Datas.Sub_AddColumn.resources
 C:\Users\Hyunrak\Documents\GitHub\Datas\obj\Debug\Datas.Sub2_AskFinal.resources
+C:\Users\Hyunrak\Documents\GitHub\Datas\obj\Debug\Datas.Main_AddT_Or_CName.resources
