@@ -216,7 +216,7 @@ namespace Datas
             listView1.Items.Clear(); listView1.Columns.Clear(); 
             listView1.GridLines = true; listView1.View = View.Details;
 
-            ColumnHeader[] columnList = new ColumnHeader[columns];
+            ColumnHeader[] columnList = new ColumnHeader[columns+1];
             columnList[0] = new ColumnHeader { Text = "" };
             string[] strs = new string[columns];
 
@@ -230,16 +230,16 @@ namespace Datas
                 }
                 listView1.Items.Add(lviData);
             }
-            
-            columnList[0] = new ColumnHeader { Text = "" };
-            columnList[1] = new ColumnHeader { Text = " " };
+
+            int ind = 0;
+            columnList[ind++] = new ColumnHeader { Text = "" };
+            columnList[ind++] = new ColumnHeader { Text = " " };
             //행 확인
-            for (int i = 2; i < columns; i++) 
+            while (rdr.Read()) 
             {
-                rdr.Read();
                 ColumnHeader tempHeader = new ColumnHeader();
                 tempHeader.Text = rdr["name"].ToString();
-                columnList[i] = tempHeader;
+                columnList[ind++] = tempHeader;
 
             }
             listView1.Columns.AddRange(columnList);
@@ -254,7 +254,7 @@ namespace Datas
         {
             try
             {
-                Main_AddT_Or_CName1 addTableWindow = new Main_AddT_Or_CName1();
+                Main_AddT_Or_CName addTableWindow = new Main_AddT_Or_CName();
                 addTableWindow.Owner = this;
                 addTableWindow.whatType("addTable");
                 if (addTableWindow.ShowDialog(this) == DialogResult.OK)
@@ -338,7 +338,7 @@ namespace Datas
                     int selectRow = listView1.SelectedItems[0].Index;
                     tableName = listView1.Items[selectRow].SubItems[1].Text;
                     aboutMainStatus.Text = tableName;
-                    Main_AddT_Or_CName1 chTableWindow = new Main_AddT_Or_CName1();
+                    Main_AddT_Or_CName chTableWindow = new Main_AddT_Or_CName();
                     chTableWindow.whatType("changeTName",tableName);
                     chTableWindow.Owner = this;
                     if (chTableWindow.ShowDialog(this) == DialogResult.OK)
@@ -383,7 +383,7 @@ namespace Datas
                 {
                     cmd = new SQLiteCommand("ALTER TABLE " + tableName +
                         " ADD COLUMN " + (addColumnWindow.ColumnNameTBox.Text).ToString() +
-                        " " + (addColumnWindow.TypeComboBox.SelectedItem).ToString() + ";", conn); ;
+                        " " + (addColumnWindow.TypeComboBox.SelectedItem).ToString() + ";", conn);
                     cmd.ExecuteNonQuery(); PrintSQLSub();
                     this.aboutMainStatus.Text = addColumnWindow.ColumnNameTBox.Text + " 기준(Column) 생성";
 
