@@ -23,7 +23,8 @@ namespace Datas
         }
         private void Sub2_AskFinal_Load(object sender, EventArgs e)
         {
-            this.Location = new Point(Owner.Location.X ,Owner.Location.Y);
+            this.Location = new Point(Owner.Location.X + Owner.Width / 2 - this.Width / 2,
+                Owner.Location.Y + Owner.Height / 2 - this.Height / 2);
         }
 
         private void OK_Button_Click(object sender, EventArgs e)

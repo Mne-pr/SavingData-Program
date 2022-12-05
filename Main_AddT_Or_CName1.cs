@@ -54,7 +54,7 @@ namespace Datas
             DialogResult = DialogResult.Cancel;
         }
 
-        public void whatType(string sth)
+        public void whatType(string sth,string tableName = "")
         {
             if (sth.Equals("addTable"))
             {
@@ -63,7 +63,7 @@ namespace Datas
             }
             else if (sth.Equals("changeTName"))
             {
-                label1.Text = "변경할 이름을 입력";
+                label1.Text = "변경할 이름을 입력(" + tableName + ")";
                 this.Text = "이름 변경";
                 what = what + "이름 변경 - ";
                 whatt = 1;

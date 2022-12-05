@@ -10,6 +10,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
@@ -26,6 +27,7 @@ namespace Datas
         private SQLiteDataReader rdr2 = null;
         private string tableName = null;
         private int isMain = 0;
+        private CheckBox[] checkBoxes= null;
 
         public Main()
         {
@@ -41,9 +43,13 @@ namespace Datas
             conn.Open();
             PrintSQLMain();
             listView1.FullRowSelect = true;
+            //
+            listView1.DrawColumnHeader += new DrawListViewColumnHeaderEventHandler(drawListColumnHeader);
+            listView1.DrawItem += new DrawListViewItemEventHandler(lv_DrawItem);
+            listView1.DrawSubItem += new DrawListViewSubItemEventHandler(lv_DrawSubItem);
+            listView1.ColumnClick += new ColumnClickEventHandler(lv_ColumnClick);
+            //
             aboutMainStatus.Text = "초기화 완료";
-            //파일 없으면 알아서 생성하나봐,,
-            //이 data.sqlite 파일에 데이터가 저장
         }
         //초기화 시 출력
         public void PrintSQLMain()
@@ -60,30 +66,98 @@ namespace Datas
             listView1.GridLines = true;
             listView1.View = View.Details;
 
-            //열 추가, 크기조정(화면에 맞게)
-            listView1.Columns.Add("테이블 목록");
-            listView1.Columns[0].Width = -2;
-
-            //rdr에서 순차적으로 읽어서 name 열의 데이터 출력
             while (rdr.Read())
-            {
+            { 
                 string table = rdr["name"].ToString();
-                aboutMainStatus.Text = "로딩중...(" + table + ")";
-                ListViewItem lvi = new ListViewItem(table);
+                ListViewItem lvi = new ListViewItem();
+                lvi.SubItems.Add(table);
                 listView1.Items.Add(lvi);
             }
             label1.Text = "Tables";
 
+            //
+            listView1.CheckBoxes = true;
+            ColumnHeader headerCheck = new ColumnHeader();
+            ColumnHeader header1 = new ColumnHeader();
+            headerCheck.Text = null;
+            header1.Text = "테이블 목록";
+            listView1.Columns.AddRange(new ColumnHeader[] { headerCheck, header1 });
+            resizeColumns();
+            listView1.Columns[1].Width = -2;
+            //
+
             aboutMainStatus.Text = "메인";
             rdr.Close();
         }
-        //윈도우의 위치 탐지 - 의도가 사라졌다..
+        //윈도우의 위치 탐지 - 의도가 사라졌지만 그냥 남겨놓음
         private void Main_LocationChanged(object sender, EventArgs e)
         {
             aboutMainStatus.Text = Location.ToString() + " - 윈도우 이동";
         }
+        //출력 시 checkbox 출력되도록하는 이벤트핸들러.. 이해하지못함
+        private void drawListColumnHeader(object sender, DrawListViewColumnHeaderEventArgs e)
+        {
+            if (e.ColumnIndex == 0)
+            {
+                e.DrawBackground();
+                bool value = false;
+                try
+                {
+                    value = Convert.ToBoolean(e.Header.Tag);
+                }
+                catch (Exception)
+                { }
+                CheckBoxRenderer.DrawCheckBox(e.Graphics, new Point(e.Bounds.Left + 4, e.Bounds.Top + 4),
+                    value ? System.Windows.Forms.VisualStyles.CheckBoxState.CheckedNormal :
+                    System.Windows.Forms.VisualStyles.CheckBoxState.UncheckedNormal);
+            }
+            else e.DrawDefault = true;
+        }
+        private void lv_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            if (e.Column == 0)
+            {
+                bool value = false;
+                try
+                {
+                    value = Convert.ToBoolean(this.listView1.Columns[e.Column].Tag);
+                }
+                catch (Exception)
+                {
+                }
+                this.listView1.Columns[e.Column].Tag = !value;
+                foreach (ListViewItem item in this.listView1.Items) item.Checked = !value;
+                this.listView1.Invalidate();
+            }
+        }
+        private void lv_DrawItem(object sender, DrawListViewItemEventArgs e)
+        {
+            e.DrawDefault = true;
+        }
+        private void lv_DrawSubItem(object sender, DrawListViewSubItemEventArgs e)
+        {
+            e.DrawDefault = true;
+        }
+        //
 
-        //테이블 선택 (이동)
+        //테이블 클릭 (선택)
+        private void listView1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int selectRow = listView1.SelectedItems[0].Index;
+                if (listView1.Items[selectRow].Checked == false)
+                {
+                    listView1.Items[selectRow].Checked = true;
+                }
+                else
+                {
+                    listView1.Items[selectRow].Checked = false;
+                }
+            }
+            catch (Exception) { }
+        }
+        //테이블 더블클릭 (이동)
         private void listView1_MouseDoubleClick(object sender, EventArgs e)
         {
             if (isMain == 0)
@@ -112,15 +186,22 @@ namespace Datas
         {
             if (isMain == 0)
             {
-                tableName = listView1.SelectedItems[0].Text;
+                int selectRow = listView1.SelectedItems[0].Index;
+                tableName = listView1.Items[selectRow].SubItems[1].Text;
                 isMain = 1; label1.Text = tableName;
 
                 MainButtonPanel.Hide();
                 tableLayoutPanel2.Visible = true; tableLayoutPanel4.Visible = true;
             }
 
-            int columns = 0;
             aboutMainStatus.Text = tableName + " 테이블로 이동";
+            //Column 개수 가져오기
+            cmd = new SQLiteCommand("SELECT count(*) FROM pragma_table_info('" + tableName + "')", conn);
+            rdr = cmd.ExecuteReader();
+            rdr.Read();
+
+            int columns = (int)Convert.ToInt32(rdr["count(*)"].ToString()) + 1;
+            rdr.Close();
 
             //해당 테이블의 Column 정보 가져오기
             cmd = new SQLiteCommand("PRAGMA table_info(" + tableName + ");", conn);
@@ -128,35 +209,43 @@ namespace Datas
 
             //해당 테이블 출력하기
             cmd = new SQLiteCommand(
-                "SELECT * FROM " + tableName + ";", conn);
+                "SELECT rowid, * FROM " + tableName + ";", conn);
             rdr2 = cmd.ExecuteReader();
 
             //클리어
             listView1.Items.Clear(); listView1.Columns.Clear(); 
             listView1.GridLines = true; listView1.View = View.Details;
 
-            //행 추가
-            while (rdr.Read())
-            {
-                listView1.Columns.Add(rdr["name"].ToString());
-                columns++;
-            }
+            ColumnHeader[] columnList = new ColumnHeader[columns];
+            columnList[0] = new ColumnHeader { Text = "" };
             string[] strs = new string[columns];
 
             //데이터 추가
             while (rdr2.Read())
             {
+                ListViewItem lviData = new ListViewItem();
                 for (int i = 0; i < columns; i++)
                 {
-                    string temp = rdr2[i].ToString();
-                    strs[i] = temp;
+                    lviData.SubItems.Add(rdr2[i].ToString());
                 }
-                ListViewItem lvi = new ListViewItem(strs);
-                listView1.Items.Add(lvi);
+                listView1.Items.Add(lviData);
             }
+            
+            columnList[0] = new ColumnHeader { Text = "" };
+            columnList[1] = new ColumnHeader { Text = " " };
+            //행 확인
+            for (int i = 2; i < columns; i++) 
+            {
+                rdr.Read();
+                ColumnHeader tempHeader = new ColumnHeader();
+                tempHeader.Text = rdr["name"].ToString();
+                columnList[i] = tempHeader;
+
+            }
+            listView1.Columns.AddRange(columnList);
 
             resizeColumns();
-            rdr.Close();
+            rdr.Close(); rdr2.Close();
             
         }
 
@@ -190,7 +279,7 @@ namespace Datas
         //메인버튼 - 삭제
         private void delTableBtn_Click(object sender, EventArgs e)
         {
-            if (listView1.SelectedIndices.Count <= 0)
+            if (listView1.CheckedIndices.Count <= 0)
             {
                 aboutMainStatus.Text = "삭제할 항목을 선택하고 실행하십시오..";
             }
@@ -198,15 +287,34 @@ namespace Datas
             {
                 try
                 {
-                    tableName = listView1.SelectedItems[0].Text;
+                    int seleced = listView1.CheckedIndices.Count;
+                    int[] selectRow = new int[seleced]; int number = 0; int i = 0;
+                    tableName = "";
+                    foreach (ListViewItem item in listView1.Items)
+                    {
+                        if (item.Checked)
+                        {
+                            selectRow[number] = i;
+                            tableName += item.SubItems[1].Text + ", ";
+                            number++;
+                        }
+                        i++;
+                    }
+                    tableName = tableName.Substring(0, tableName.Length - 2);
 
                     Sub2_AskFinal AskFinal = new Sub2_AskFinal();
                     AskFinal.Owner = this;
                     AskFinal.SetLabel("테이블 삭제 - " + tableName);
-                    if(AskFinal.ShowDialog() == DialogResult.OK)
+                    if (AskFinal.ShowDialog() == DialogResult.OK)
                     {
-                        cmd = new SQLiteCommand("DROP TABLE IF EXISTS " + tableName + ";", conn);
-                        cmd.ExecuteNonQuery(); PrintSQLMain();
+                        string[] tableNames = tableName.Split(',');
+                        foreach (string name in tableNames)
+                        {
+                            cmd = new SQLiteCommand("DROP TABLE IF EXISTS " + name + ";", conn);
+                            cmd.ExecuteNonQuery();
+                        }
+                        
+                        PrintSQLMain();
                         aboutMainStatus.Text = "테이블 " + tableName + " - 삭제됨";
                     }
                 }
@@ -219,7 +327,7 @@ namespace Datas
         //메인버튼 - 이름변경
         private void changeTNameBtn_Click(object sender, EventArgs e)
         {
-            if (listView1.SelectedIndices.Count <= 0)
+            if (listView1.SelectedIndices.Count != 1)
             {
                 aboutMainStatus.Text = "이름을 변경할 항목을 선택하고 실행하십시오..";
             }
@@ -227,10 +335,11 @@ namespace Datas
             {
                 try
                 {
-                    tableName = listView1.SelectedItems[0].Text;
+                    int selectRow = listView1.SelectedItems[0].Index;
+                    tableName = listView1.Items[selectRow].SubItems[1].Text;
                     aboutMainStatus.Text = tableName;
                     Main_AddT_Or_CName1 chTableWindow = new Main_AddT_Or_CName1();
-                    chTableWindow.whatType("changeTName");
+                    chTableWindow.whatType("changeTName",tableName);
                     chTableWindow.Owner = this;
                     if (chTableWindow.ShowDialog(this) == DialogResult.OK)
                     {
@@ -323,5 +432,6 @@ namespace Datas
         {
             //정렬할거
         }
+
     }
 }
