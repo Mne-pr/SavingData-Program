@@ -10,12 +10,12 @@ using System.Windows.Forms;
 
 namespace Datas
 {
-    public partial class Main_AddT_Or_CName1 : Form
+    public partial class Main_AddT_Or_CName : Form
         //메인의 추가, 변경버튼에 사용
     {
         string what = ""; int whatt = 0;
 
-        public Main_AddT_Or_CName1()
+        public Main_AddT_Or_CName()
         {
             InitializeComponent();
         }

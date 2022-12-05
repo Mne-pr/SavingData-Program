@@ -1,6 +1,6 @@
 ﻿namespace Datas
 {
-    partial class Main_AddT_Or_CName1
+    partial class Main_AddT_Or_CName
     {
         /// <summary>
         /// Required designer variable.
