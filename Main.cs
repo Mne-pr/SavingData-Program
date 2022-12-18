@@ -574,25 +574,40 @@ namespace Datas
 
                 if (changeDataWindow.ShowDialog() == DialogResult.OK)
                 {
-                    cmd = new SQLiteCommand("SELECT ROWID FROM " + tableName + " WHERE "
-                    + changeDataWindow.columns[0] + " = '" + changeDataWindow.firstData + "';", conn);
+                    cmd = new SQLiteCommand("SELECT ROWID FROM '" + tableName + "' WHERE "
+                    + changeDataWindow.columns[0] + " = '" + changeDataWindow.preFirstData + "';", conn);
                     try {
                         rdr = cmd.ExecuteReader();
                         rdr.Read();
-                        //수정작업,일단 원래 이름 그대로 가는경우
+                        string targetRow = rdr["rowid"].ToString();
+
+                        cmd = new SQLiteCommand("SELECT ROWID, * FROM '" + tableName + "';", conn);
+                        rdr = cmd.ExecuteReader();
+
+                        //중복된 첫 열의 데이터가 있는지 확인
+                        while (rdr.Read())
+                        {
+                            if (changeDataWindow.firstData.Equals(rdr[changeDataWindow.columns[0]]) &&
+                                !(targetRow.Equals(rdr["rowid"].ToString())) )
+                            {
+                                throw new Exception("중복");
+                            }
+                        }
+
+                        //수정작업
                         cmd = new SQLiteCommand("REPLACE INTO " + tableName
                             + " (ROWID, " + changeDataWindow.columnEnum + ") VALUES ("
-                            + rdr["rowid"] + ", " + changeDataWindow.dataEnum + ");", conn);
+                            + targetRow + ", " + changeDataWindow.dataEnum + ");", conn);
                         cmd.ExecuteNonQuery(); PrintSQLSub();
                         aboutMainStatus.Text = changeDataWindow.columns[0] + "-" + changeDataWindow.firstData + " : 행 갱신";
                     }
                     catch (Exception ent)
                     {
-                        MessageBox.Show(ent.Message);
-                        //이색기가 이름도 변경했다는 뜻 - 아니네 시발 위에서 걸러지네
-                        //이름이 다른지 조건문으로 확인해야할듯
-                        //원래 있는 다른 이름과 같은 경우... 실패를 띄워야겟지..?
-                        //덮어쓰시겠습니까 창 또 만들까..
+                        if (ent.Message.Equals("중복"))
+                        {
+                            aboutMainStatus.Text = "첫 열의 데이터는 중복될 수 없습니다!";
+                        }
+                        else { MessageBox.Show(ent.Message); }
                     }
                  }
                 else

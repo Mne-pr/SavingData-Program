@@ -15,13 +15,15 @@ namespace Datas
 {
     public partial class Sub_ChangeData : Form
     {
-        private int columnConut = 0;
+        public int columnCount = 0;
+        public int rowCount = 0;
         public string[] columns = null;
         public string[] types = null;
         public string[] datas = null;
         public string[] listDatas = null;
         public string columnEnum = "";
         public string dataEnum = "";
+        public string preFirstData = "";
         public string firstData = "";
 
         public Sub_ChangeData()
@@ -36,7 +38,7 @@ namespace Datas
 
         private void OK_Button_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < columnConut; i++)
+            for (int i = 0; i < columnCount; i++)
             {
                 System.Windows.Forms.TextBox tempTxt = (System.Windows.Forms.TextBox)textBoxPanel.GetControlFromPosition(i, 0);
                 if (tempTxt.Text.Length > 0)
@@ -62,37 +64,37 @@ namespace Datas
             textBoxPanel.Controls.Clear(); labelsPanel.Controls.Clear(); typeLabelPanel.Controls.Clear();
             //LabelsPanel.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
 
-            for (int i = 0; i < columnConut; i++)
+            for (int i = 0; i < columnCount; i++)
             {
                 labelsPanel.Controls.Add(new Label { Text = columns[i], Anchor = AnchorStyles.Bottom, AutoSize = true }, i, 0);
                 typeLabelPanel.Controls.Add(new Label { Text = types[i], Anchor = AnchorStyles.Top, AutoSize = true });
                 textBoxPanel.Controls.Add(new System.Windows.Forms.TextBox { Text = listDatas[i], Anchor = AnchorStyles.Top, AutoSize = true }, i, 0);
                 try
                 {
-                    labelsPanel.ColumnStyles[i] = new ColumnStyle(SizeType.Absolute, 530 / columnConut);
+                    labelsPanel.ColumnStyles[i] = new ColumnStyle(SizeType.Absolute, 530 / columnCount);
                 }
                 catch (Exception)
                 {
-                    labelsPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 530 / columnConut));
+                    labelsPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 530 / columnCount));
                     labelsPanel.ColumnCount = labelsPanel.ColumnStyles.Count;
                 }
                 try
                 {
-                    typeLabelPanel.ColumnStyles[i] = new ColumnStyle(SizeType.Absolute, 530 / columnConut);
+                    typeLabelPanel.ColumnStyles[i] = new ColumnStyle(SizeType.Absolute, 530 / columnCount);
                 }
                 catch (Exception)
                 {
-                    typeLabelPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 530 / columnConut));
+                    typeLabelPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 530 / columnCount));
                     typeLabelPanel.ColumnCount = typeLabelPanel.ColumnStyles.Count;
                 }
                 try
                 {
-                    textBoxPanel.ColumnStyles[i] = new ColumnStyle(SizeType.Absolute, 530 / columnConut);
+                    textBoxPanel.ColumnStyles[i] = new ColumnStyle(SizeType.Absolute, 530 / columnCount);
                     
                 }
                 catch (Exception)
                 {
-                    textBoxPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 530 / columnConut));
+                    textBoxPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 530 / columnCount));
                     textBoxPanel.ColumnCount = labelsPanel.ColumnStyles.Count;
                 }
 
@@ -121,9 +123,13 @@ namespace Datas
             int selectRow = listView1.SelectedItems[0].Index;
             SQLiteCommand cmd = new SQLiteCommand("SELECT count(*) FROM pragma_table_info('" + tableName + "')", conn);
             SQLiteDataReader rdr = cmd.ExecuteReader(); rdr.Read();
-            columnConut = (int)Convert.ToInt32(rdr["count(*)"].ToString());
-            columns = new string[columnConut]; types = new string[columnConut]; listDatas = new string[columnConut];
+            columnCount = (int)Convert.ToInt32(rdr["count(*)"].ToString());
+            columns = new string[columnCount]; types = new string[columnCount]; listDatas = new string[columnCount];
             int t = 0; rdr.Close();
+
+            cmd = new SQLiteCommand("SELECT count(*) FROM '" + tableName + "';", conn);
+            rdr = cmd.ExecuteReader(); rdr.Read();
+            rowCount = (int)Convert.ToInt32(rdr["count(*)"].ToString()); rdr.Close();
 
             cmd = new SQLiteCommand("PRAGMA table_info(" + tableName + ");", conn);
             rdr = cmd.ExecuteReader();
@@ -135,9 +141,11 @@ namespace Datas
             rdr.Close();
             //column, type의 이름들 다 불러옴, 크기도 함께
 
-            for (int i = 0; i < columnConut; i++)
+            for (int i = 0; i < columnCount; i++)
             {
                 listDatas[i] = listView1.Items[selectRow].SubItems[i+2].Text;
+                if (i == 0)
+                    preFirstData = listDatas[0];
             }
             //이미 저장되어있는 데이터도 출력하기 위해
         }
