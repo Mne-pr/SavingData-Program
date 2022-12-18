@@ -89,12 +89,12 @@ namespace Datas
             aboutMainStatus.Text = "메인";
             rdr.Close();
         }
-        //윈도우의 위치 탐지 - 의도가 사라졌지만 그냥 남겨놓음
+        //윈도우 위치 탐지
         private void Main_LocationChanged(object sender, EventArgs e)
         {
             aboutMainStatus.Text = Location.ToString() + " - 윈도우 이동";
         }
-        //출력 시 checkbox 출력되도록하는 이벤트핸들러.. 이해하지못함
+        //출력 시 checkbox 자동으로 렌더링 되도록
         private void drawListColumnHeader(object sender, DrawListViewColumnHeaderEventArgs e)
         {
             if (e.ColumnIndex == 0)
@@ -138,7 +138,7 @@ namespace Datas
         {
             e.DrawDefault = true;
         }
-        //
+        
 
         //테이블 클릭 (선택)
         private void listView1_Click(object sender, EventArgs e)
@@ -200,45 +200,55 @@ namespace Datas
             rdr = cmd.ExecuteReader();
             rdr.Read();
 
-            int columns = (int)Convert.ToInt32(rdr["count(*)"].ToString()) + 1;
+            int columnAndCheckCount = (int)Convert.ToInt32(rdr["count(*)"].ToString()) + 1;
+            if(columnAndCheckCount - 1 <= 1) { delColumnBtn.Enabled = false; }
+            else { delColumnBtn.Enabled = true; }
             rdr.Close();
 
             //해당 테이블의 Column 정보 가져오기
             cmd = new SQLiteCommand("PRAGMA table_info(" + tableName + ");", conn);
             rdr = cmd.ExecuteReader();
 
-            //해당 테이블 출력하기
-            cmd = new SQLiteCommand(
-                "SELECT rowid, * FROM " + tableName + ";", conn);
+            //해당 테이블 출력하기, rowid는 단지 자리를 만들기 위해..
+            cmd = new SQLiteCommand("SELECT rowid, * FROM " + tableName + ";", conn);
             rdr2 = cmd.ExecuteReader();
 
             //클리어
             listView1.Items.Clear(); listView1.Columns.Clear(); 
             listView1.GridLines = true; listView1.View = View.Details;
 
-            ColumnHeader[] columnList = new ColumnHeader[columns+1];
+            ColumnHeader[] columnList = new ColumnHeader[columnAndCheckCount+1];
             columnList[0] = new ColumnHeader { Text = "" };
-            string[] strs = new string[columns];
+            string[] strs = new string[columnAndCheckCount];
 
             //데이터 추가
+            int rowCount = 1;
             while (rdr2.Read())
             {
                 ListViewItem lviData = new ListViewItem();
-                for (int i = 0; i < columns; i++)
+                for (int i = 0; i < columnAndCheckCount; i++)
                 {
-                    lviData.SubItems.Add(rdr2[i].ToString());
+                    if (i == 0)
+                    {
+                        lviData.SubItems.Add((rowCount++).ToString());
+                    }
+                    else
+                    {
+                        lviData.SubItems.Add(rdr2[i].ToString());
+                    }
                 }
                 listView1.Items.Add(lviData);
             }
 
             int ind = 0;
             columnList[ind++] = new ColumnHeader { Text = "" };
-            columnList[ind++] = new ColumnHeader { Text = " " };
+            columnList[ind++] = new ColumnHeader { Text = "" };
             //행 확인
             while (rdr.Read()) 
             {
                 ColumnHeader tempHeader = new ColumnHeader();
                 tempHeader.Text = rdr["name"].ToString();
+
                 columnList[ind++] = tempHeader;
 
             }
@@ -249,9 +259,11 @@ namespace Datas
             
         }
 
+
         //메인버튼 - 추가
         public void addTableBtn_Click(object sender, EventArgs e)
         {
+            aboutMainStatus.Text = "테이블 추가 - 클릭";
             try
             {
                 Main_AddT_Or_CName addTableWindow = new Main_AddT_Or_CName();
@@ -260,7 +272,7 @@ namespace Datas
                 if (addTableWindow.ShowDialog(this) == DialogResult.OK)
                 {
                     cmd = new SQLiteCommand("CREATE TABLE "
-                        + (addTableWindow.TableNameTBox.Text).ToString() + " (DFT INTEGER);", conn);
+                        + (addTableWindow.TableNameTBox.Text).ToString() + " (DFTEXT TEXT);", conn);
                     cmd.ExecuteNonQuery();
                     PrintSQLMain();
                     this.aboutMainStatus.Text = addTableWindow.TableNameTBox.Text + " 테이블 생성";
@@ -285,6 +297,7 @@ namespace Datas
             }
             else
             {
+                aboutMainStatus.Text = "테이블 삭제 - 클릭";
                 try
                 {
                     int seleced = listView1.CheckedIndices.Count;
@@ -317,6 +330,10 @@ namespace Datas
                         PrintSQLMain();
                         aboutMainStatus.Text = "테이블 " + tableName + " - 삭제됨";
                     }
+                    else
+                    {
+                        aboutMainStatus.Text = "테이블 삭제 - 취소";
+                    }
                 }
                 catch (Exception err)
                 {
@@ -333,11 +350,11 @@ namespace Datas
             }
             else
             {
+                aboutMainStatus.Text = "이름 변경 - 클릭";
                 try
                 {
                     int selectRow = listView1.SelectedItems[0].Index;
                     tableName = listView1.Items[selectRow].SubItems[1].Text;
-                    aboutMainStatus.Text = tableName;
                     Main_AddT_Or_CName chTableWindow = new Main_AddT_Or_CName();
                     chTableWindow.whatType("changeTName",tableName);
                     chTableWindow.Owner = this;
@@ -361,6 +378,7 @@ namespace Datas
         }
 
      
+
         //업서브테이블버튼 - 메인으로
         private void toHomeBtn_Click(object sender, EventArgs e)
         {
@@ -371,10 +389,17 @@ namespace Datas
             isMain = 0;
         }
 
+        //리스트뷰 - 해당 기준(Column)에 정렬 - 미완
+        private void listView1_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+
+        }
+
 
         //서브테이블버튼 - 기준(Column) 추가
         private void addColumnBtn_Click(object sender, EventArgs e)
         {
+            aboutMainStatus.Text = "기준 추가 - 클릭";
             try
             {
                 Sub_AddColumn addColumnWindow = new Sub_AddColumn();
@@ -388,6 +413,10 @@ namespace Datas
                     this.aboutMainStatus.Text = addColumnWindow.ColumnNameTBox.Text + " 기준(Column) 생성";
 
                 }
+                else
+                {
+                    aboutMainStatus.Text = "기준 추가 - 취소";
+                }
             }
             catch (Exception err)
             {
@@ -397,6 +426,7 @@ namespace Datas
         //서브테이블버튼 - 기준(Column) 삭제
         private void delColumnBtn_Click(object sender, EventArgs e)
         {
+            aboutMainStatus.Text = "기준 삭제 - 클릭";
             Sub_DelColumn DelColumnWindow = new Sub_DelColumn();
             DelColumnWindow.Owner = this;
             DelColumnWindow.SetItems(conn, tableName);
@@ -426,12 +456,150 @@ namespace Datas
                 PrintSQLSub();
                 aboutMainStatus.Text = DelColumnWindow.ColumnComboBox.SelectedItem + " - 기준 삭제완료";
             }
+            else
+            {
+                aboutMainStatus.Text = "기준 삭제 - 취소";
+            }
         }
-
-        private void listView1_ColumnClick(object sender, ColumnClickEventArgs e)
+        //서브테이블버튼 - 데이터(Row) 추가
+        private void addDataBtn_Click(object sender, EventArgs e)
         {
-            //정렬할거
-        }
+            aboutMainStatus.Text = "데이터 추가 - 클릭";
+            Sub_AddData AddDataWindow = new Sub_AddData();
+            AddDataWindow.Owner = this;
+            AddDataWindow.FirstSet(conn, tableName); 
 
+            if(AddDataWindow.ShowDialog() == DialogResult.OK)
+            {
+                cmd = new SQLiteCommand("SELECT ROWID FROM " + tableName + " WHERE " 
+                    + AddDataWindow.columns[0] + " = '" + AddDataWindow.firstData + "';",conn);
+                try
+                {
+                    rdr = cmd.ExecuteReader();
+                    rdr.Read();
+                    //읽어지면 이미 있다는것. 수정작업으로
+                    cmd = new SQLiteCommand("REPLACE INTO " + tableName
+                        + " (ROWID, " + AddDataWindow.columnEnum + ") VALUES ("
+                        + rdr["rowid"] +", " + AddDataWindow.dataEnum + ");", conn);
+                    cmd.ExecuteNonQuery(); PrintSQLSub();
+                    aboutMainStatus.Text = AddDataWindow.columns[0] + "-" + AddDataWindow.firstData + " : 행 갱신";
+                }
+                catch (Exception)
+                {
+                    //예외로 넘어와진다면 새로 추가만하면 됨
+                    cmd = new SQLiteCommand("INSERT INTO " + tableName
+                        + " (" + AddDataWindow.columnEnum + ") VALUES ("
+                        + AddDataWindow.dataEnum + ");", conn);
+                    cmd.ExecuteNonQuery(); PrintSQLSub();
+                    aboutMainStatus.Text = AddDataWindow.columns[0] + "-" + AddDataWindow.firstData + " : 행 생성";
+                }
+            }
+            else
+            {
+                aboutMainStatus.Text = "데이터 추가 - 취소";
+            }
+        }
+        //서브테이블버튼 - 데이터(Row) 삭제
+        private void delDataBtn_Click(object sender, EventArgs e)
+        {
+            //첫번째 데이터(row번호 뒤!)를 기준으로 삭제함
+            if (listView1.CheckedIndices.Count <= 0)
+            {
+                aboutMainStatus.Text = "삭제할 항목을 선택하고 실행하십시오..";
+            }
+            else
+            {
+                aboutMainStatus.Text = "데이터 삭제 - 클릭";
+                try
+                {
+                    int seleced = listView1.CheckedIndices.Count;
+                    int[] selectRow = new int[seleced]; int number = 0; int i = 0;
+                    string delThingsList = "";
+                    foreach (ListViewItem item in listView1.Items)
+                    {
+                        if (item.Checked)
+                        {
+                            selectRow[number] = i;
+                            delThingsList += item.SubItems[2].Text + ", ";
+                            number++;
+                        }
+                        i++;
+                    }
+                    delThingsList = delThingsList.Substring(0, delThingsList.Length - 2);
+
+                    cmd = new SQLiteCommand("PRAGMA table_info('" + tableName + "');",conn);
+                    rdr = cmd.ExecuteReader(); rdr.Read();
+                    string firstColumn = rdr["name"].ToString();
+
+                    Sub2_AskFinal AskFinal = new Sub2_AskFinal();
+                    AskFinal.Owner = this;
+                    AskFinal.SetLabel("데이터 삭제");
+                    if (AskFinal.ShowDialog() == DialogResult.OK)
+                    {
+                        string[] delThings = delThingsList.Split(',');
+                        foreach (string name in delThings)
+                        {
+                            cmd = new SQLiteCommand("DELETE FROM " + tableName + " WHERE " + firstColumn + " = '" + name + "';", conn);
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        PrintSQLSub();
+                        aboutMainStatus.Text = "데이터 " + delThingsList + " - 삭제됨";
+                    }
+                    else
+                    {
+                        aboutMainStatus.Text = "데이터 삭제 - 취소";
+                    }
+                }
+                catch (Exception err)
+                {
+                    MessageBox.Show(err.Message);
+                }
+            }
+        }
+        //서브테이블버튼 - 데이터(Row) 수정
+        private void chDataBtn_Click(object sender, EventArgs e)
+        {
+            if (listView1.SelectedIndices.Count != 1)
+            {
+                aboutMainStatus.Text = "수정할 항목을 선택하고 실행하십시오..";
+            }
+            else
+            {
+                //이거 지금 데이터 추가에서 들고온거라 엉망진창임!!
+                aboutMainStatus.Text = "데이터 수정 - 클릭";
+                Sub_ChangeData changeDataWindow = new Sub_ChangeData();
+                changeDataWindow.Owner = this;
+                changeDataWindow.FirstSet(conn,tableName,listView1);
+
+                if (changeDataWindow.ShowDialog() == DialogResult.OK)
+                {
+                    cmd = new SQLiteCommand("SELECT ROWID FROM " + tableName + " WHERE "
+                    + changeDataWindow.columns[0] + " = '" + changeDataWindow.firstData + "';", conn);
+                    try {
+                        rdr = cmd.ExecuteReader();
+                        rdr.Read();
+                        //수정작업,일단 원래 이름 그대로 가는경우
+                        cmd = new SQLiteCommand("REPLACE INTO " + tableName
+                            + " (ROWID, " + changeDataWindow.columnEnum + ") VALUES ("
+                            + rdr["rowid"] + ", " + changeDataWindow.dataEnum + ");", conn);
+                        cmd.ExecuteNonQuery(); PrintSQLSub();
+                        aboutMainStatus.Text = changeDataWindow.columns[0] + "-" + changeDataWindow.firstData + " : 행 갱신";
+                    }
+                    catch (Exception ent)
+                    {
+                        MessageBox.Show(ent.Message);
+                        //이색기가 이름도 변경했다는 뜻 - 아니네 시발 위에서 걸러지네
+                        //이름이 다른지 조건문으로 확인해야할듯
+                        //원래 있는 다른 이름과 같은 경우... 실패를 띄워야겟지..?
+                        //덮어쓰시겠습니까 창 또 만들까..
+                    }
+                 }
+                else
+                {
+                    aboutMainStatus.Text = "데이터 수정 - 취소";
+                }
+            }
+        }
     }
 }

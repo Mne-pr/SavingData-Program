@@ -41,10 +41,10 @@
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.addColumnBtn = new System.Windows.Forms.Button();
             this.delColumnBtn = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
+            this.addDataBtn = new System.Windows.Forms.Button();
+            this.delDataBtn = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
-            this.button9 = new System.Windows.Forms.Button();
+            this.chDataBtn = new System.Windows.Forms.Button();
             this.MainButtonPanel = new System.Windows.Forms.TableLayoutPanel();
             this.changeTNameBtn = new System.Windows.Forms.Button();
             this.delTableBtn = new System.Windows.Forms.Button();
@@ -124,8 +124,8 @@
             this.tableLayoutPanel2.ColumnCount = 6;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 111F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 156F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 142F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 125F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 21F));
             this.tableLayoutPanel2.Controls.Add(this.toHomeBtn, 0, 0);
@@ -169,7 +169,7 @@
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(92, 21);
             this.button2.TabIndex = 1;
-            this.button2.Text = "뒤로";
+            this.button2.Text = "뒤로-미완";
             this.button2.UseVisualStyleBackColor = true;
             // 
             // button3
@@ -177,19 +177,19 @@
             this.button3.Location = new System.Drawing.Point(184, 0);
             this.button3.Margin = new System.Windows.Forms.Padding(0);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(92, 21);
+            this.button3.Size = new System.Drawing.Size(131, 21);
             this.button3.TabIndex = 2;
-            this.button3.Text = "뒤로가기 시점";
+            this.button3.Text = "뒤로가기 시점 -미완";
             this.button3.UseVisualStyleBackColor = true;
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(295, 0);
+            this.button4.Location = new System.Drawing.Point(326, 0);
             this.button4.Margin = new System.Windows.Forms.Padding(0);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(75, 21);
             this.button4.TabIndex = 3;
-            this.button4.Text = "저장";
+            this.button4.Text = "저장-미완";
             this.button4.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel4
@@ -198,10 +198,10 @@
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel4.Controls.Add(this.addColumnBtn, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.delColumnBtn, 0, 1);
-            this.tableLayoutPanel4.Controls.Add(this.button7, 0, 2);
-            this.tableLayoutPanel4.Controls.Add(this.button8, 0, 3);
+            this.tableLayoutPanel4.Controls.Add(this.addDataBtn, 0, 2);
+            this.tableLayoutPanel4.Controls.Add(this.delDataBtn, 0, 3);
             this.tableLayoutPanel4.Controls.Add(this.button10, 0, 5);
-            this.tableLayoutPanel4.Controls.Add(this.button9, 0, 4);
+            this.tableLayoutPanel4.Controls.Add(this.chDataBtn, 0, 4);
             this.tableLayoutPanel4.Location = new System.Drawing.Point(768, 30);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 9;
@@ -240,25 +240,27 @@
             this.delColumnBtn.UseVisualStyleBackColor = true;
             this.delColumnBtn.Click += new System.EventHandler(this.delColumnBtn_Click);
             // 
-            // button7
+            // addDataBtn
             // 
-            this.button7.Location = new System.Drawing.Point(0, 94);
-            this.button7.Margin = new System.Windows.Forms.Padding(0);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(105, 45);
-            this.button7.TabIndex = 2;
-            this.button7.Text = "데이터 추가";
-            this.button7.UseVisualStyleBackColor = true;
+            this.addDataBtn.Location = new System.Drawing.Point(0, 94);
+            this.addDataBtn.Margin = new System.Windows.Forms.Padding(0);
+            this.addDataBtn.Name = "addDataBtn";
+            this.addDataBtn.Size = new System.Drawing.Size(105, 45);
+            this.addDataBtn.TabIndex = 2;
+            this.addDataBtn.Text = "데이터 추가";
+            this.addDataBtn.UseVisualStyleBackColor = true;
+            this.addDataBtn.Click += new System.EventHandler(this.addDataBtn_Click);
             // 
-            // button8
+            // delDataBtn
             // 
-            this.button8.Location = new System.Drawing.Point(0, 141);
-            this.button8.Margin = new System.Windows.Forms.Padding(0);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(105, 45);
-            this.button8.TabIndex = 3;
-            this.button8.Text = "데이터 삭제";
-            this.button8.UseVisualStyleBackColor = true;
+            this.delDataBtn.Location = new System.Drawing.Point(0, 141);
+            this.delDataBtn.Margin = new System.Windows.Forms.Padding(0);
+            this.delDataBtn.Name = "delDataBtn";
+            this.delDataBtn.Size = new System.Drawing.Size(105, 45);
+            this.delDataBtn.TabIndex = 3;
+            this.delDataBtn.Text = "데이터 삭제";
+            this.delDataBtn.UseVisualStyleBackColor = true;
+            this.delDataBtn.Click += new System.EventHandler(this.delDataBtn_Click);
             // 
             // button10
             // 
@@ -269,15 +271,16 @@
             this.button10.Text = "button10";
             this.button10.UseVisualStyleBackColor = true;
             // 
-            // button9
+            // chDataBtn
             // 
-            this.button9.Location = new System.Drawing.Point(0, 188);
-            this.button9.Margin = new System.Windows.Forms.Padding(0);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(105, 45);
-            this.button9.TabIndex = 4;
-            this.button9.Text = "데이터 수정";
-            this.button9.UseVisualStyleBackColor = true;
+            this.chDataBtn.Location = new System.Drawing.Point(0, 188);
+            this.chDataBtn.Margin = new System.Windows.Forms.Padding(0);
+            this.chDataBtn.Name = "chDataBtn";
+            this.chDataBtn.Size = new System.Drawing.Size(105, 45);
+            this.chDataBtn.TabIndex = 4;
+            this.chDataBtn.Text = "데이터 수정";
+            this.chDataBtn.UseVisualStyleBackColor = true;
+            this.chDataBtn.Click += new System.EventHandler(this.chDataBtn_Click);
             // 
             // MainButtonPanel
             // 
@@ -378,9 +381,9 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button addColumnBtn;
         private System.Windows.Forms.Button delColumnBtn;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button8;
-        private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.Button addDataBtn;
+        private System.Windows.Forms.Button delDataBtn;
+        private System.Windows.Forms.Button chDataBtn;
         private System.Windows.Forms.Button button10;
     }
 }

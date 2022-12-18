@@ -1,6 +1,6 @@
 ﻿namespace Datas
 {
-    partial class Sub_AddData
+    partial class Sub_ChangeData
     {
         /// <summary>
         /// Required designer variable.
@@ -35,8 +35,6 @@
             this.Cancel_Button = new System.Windows.Forms.Button();
             this.OK_Button = new System.Windows.Forms.Button();
             this.textBoxPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.toOCRbtn = new System.Windows.Forms.Button();
-            this.toTypeBtn = new System.Windows.Forms.Button();
             this.labelsPanel = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -44,7 +42,6 @@
             this.tableLayoutPanel1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
-            this.textBoxPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -70,7 +67,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(530, 172);
-            this.tableLayoutPanel1.TabIndex = 5;
+            this.tableLayoutPanel1.TabIndex = 6;
             // 
             // statusStrip1
             // 
@@ -85,7 +82,7 @@
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(190, 15);
-            this.toolStripStatusLabel1.Text = "입력한 대로 데이터를 생성합니다.";
+            this.toolStripStatusLabel1.Text = "입력한 대로 데이터를 수정합니다.";
             // 
             // tableLayoutPanel2
             // 
@@ -120,7 +117,6 @@
             // 
             // OK_Button
             // 
-            this.OK_Button.Enabled = false;
             this.OK_Button.Location = new System.Drawing.Point(285, 0);
             this.OK_Button.Margin = new System.Windows.Forms.Padding(0);
             this.OK_Button.Name = "OK_Button";
@@ -137,8 +133,6 @@
             this.textBoxPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4F));
             this.textBoxPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4F));
             this.textBoxPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 46F));
-            this.textBoxPanel.Controls.Add(this.toOCRbtn, 3, 0);
-            this.textBoxPanel.Controls.Add(this.toTypeBtn, 0, 0);
             this.textBoxPanel.Location = new System.Drawing.Point(0, 71);
             this.textBoxPanel.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
             this.textBoxPanel.Name = "textBoxPanel";
@@ -146,29 +140,6 @@
             this.textBoxPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.textBoxPanel.Size = new System.Drawing.Size(530, 34);
             this.textBoxPanel.TabIndex = 6;
-            // 
-            // toOCRbtn
-            // 
-            this.toOCRbtn.Enabled = false;
-            this.toOCRbtn.Location = new System.Drawing.Point(285, 3);
-            this.toOCRbtn.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
-            this.toOCRbtn.Name = "toOCRbtn";
-            this.toOCRbtn.Size = new System.Drawing.Size(90, 20);
-            this.toOCRbtn.TabIndex = 0;
-            this.toOCRbtn.Text = "OCR";
-            this.toOCRbtn.UseVisualStyleBackColor = true;
-            // 
-            // toTypeBtn
-            // 
-            this.toTypeBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.toTypeBtn.Location = new System.Drawing.Point(153, 3);
-            this.toTypeBtn.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
-            this.toTypeBtn.Name = "toTypeBtn";
-            this.toTypeBtn.Size = new System.Drawing.Size(90, 20);
-            this.toTypeBtn.TabIndex = 0;
-            this.toTypeBtn.Text = "입력";
-            this.toTypeBtn.UseVisualStyleBackColor = true;
-            this.toTypeBtn.Click += new System.EventHandler(this.toTypeBtn_Click);
             // 
             // labelsPanel
             // 
@@ -198,11 +169,11 @@
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(192, 18);
+            this.label2.Location = new System.Drawing.Point(194, 18);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(145, 18);
+            this.label2.Size = new System.Drawing.Size(141, 18);
             this.label2.TabIndex = 0;
-            this.label2.Text = "추가할 방법을 선택하세요";
+            this.label2.Text = "데이터를 수정하고 \'확인\'";
             // 
             // typeLabelPanel
             // 
@@ -217,21 +188,20 @@
             this.typeLabelPanel.Size = new System.Drawing.Size(530, 16);
             this.typeLabelPanel.TabIndex = 8;
             // 
-            // Sub_AddData
+            // Sub_ChangeData
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(529, 172);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Name = "Sub_AddData";
-            this.Text = "Form2";
-            this.Load += new System.EventHandler(this.Sub_AddData_Load);
+            this.Name = "Sub_ChangeData";
+            this.Text = "Sub_ChangeData";
+            this.Load += new System.EventHandler(this.Sub_ChangeData_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
-            this.textBoxPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -239,7 +209,6 @@
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
@@ -247,9 +216,8 @@
         private System.Windows.Forms.Button OK_Button;
         private System.Windows.Forms.TableLayoutPanel textBoxPanel;
         private System.Windows.Forms.TableLayoutPanel labelsPanel;
+        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button toTypeBtn;
-        private System.Windows.Forms.Button toOCRbtn;
         private System.Windows.Forms.TableLayoutPanel typeLabelPanel;
     }
 }

@@ -83,6 +83,12 @@
     <Compile Include="Sub_AddColumn.Designer.cs">
       <DependentUpon>Sub_AddColumn.cs</DependentUpon>
     </Compile>
+    <Compile Include="Sub_ChangeData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Sub_ChangeData.Designer.cs">
+      <DependentUpon>Sub_ChangeData.cs</DependentUpon>
+    </Compile>
     <Compile Include="Sub_DelColumn.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -111,6 +117,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Sub_AddColumn.resx">
       <DependentUpon>Sub_AddColumn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Sub_ChangeData.resx">
+      <DependentUpon>Sub_ChangeData.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Sub_DelColumn.resx">
       <DependentUpon>Sub_DelColumn.cs</DependentUpon>
