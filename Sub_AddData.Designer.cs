@@ -149,7 +149,6 @@
             // 
             // toOCRbtn
             // 
-            this.toOCRbtn.Enabled = false;
             this.toOCRbtn.Location = new System.Drawing.Point(285, 3);
             this.toOCRbtn.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
             this.toOCRbtn.Name = "toOCRbtn";
@@ -157,6 +156,7 @@
             this.toOCRbtn.TabIndex = 0;
             this.toOCRbtn.Text = "OCR";
             this.toOCRbtn.UseVisualStyleBackColor = true;
+            this.toOCRbtn.Click += new System.EventHandler(this.toOCRbtn_Click);
             // 
             // toTypeBtn
             // 
@@ -240,8 +240,6 @@
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Button Cancel_Button;
         private System.Windows.Forms.Button OK_Button;
@@ -251,5 +249,7 @@
         private System.Windows.Forms.Button toTypeBtn;
         private System.Windows.Forms.Button toOCRbtn;
         private System.Windows.Forms.TableLayoutPanel typeLabelPanel;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
     }
 }
