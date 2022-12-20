@@ -11,7 +11,7 @@ using System.Windows.Forms;
 namespace Datas
 {
     public partial class Main_AddT_Or_CName : Form
-        //메인의 추가, 변경버튼에 사용
+    //메인의 추가, 변경버튼에 사용
     {
         string what = ""; int whatt = 0;
 
@@ -28,7 +28,7 @@ namespace Datas
 
         private void OK_Button_Click(object sender, EventArgs e)
         {
-            if(whatt == 1)
+            if (whatt == 1)
             {
                 Sub2_AskFinal AskFinal = new Sub2_AskFinal();
                 AskFinal.Owner = this;
@@ -54,7 +54,7 @@ namespace Datas
             DialogResult = DialogResult.Cancel;
         }
 
-        public void whatType(string sth,string tableName = "")
+        public void whatType(string sth, string tableName = "")
         {
             if (sth.Equals("addTable"))
             {
@@ -73,18 +73,36 @@ namespace Datas
         private void TableNameTBox_TextChanged(object sender, EventArgs e)
         {
             string text = TableNameTBox.Text;
-            
-            if (TableNameTBox.Text.Length > 0 && text[0]> 'A' && text[0] < 'z') 
-            { 
+
+            if (TableNameTBox.Text.Length > 0 && text[0] > 'A' && text[0] < 'z')
+            {
                 OK_Button.Enabled = true;
                 toolStripStatusLabel1.Text = "입력한 이름으로 테이블을 생성합니다.";
             }
             else
             {
                 OK_Button.Enabled = false;
-                toolStripStatusLabel1.Text = "TIP - 공백, 첫글자가 숫자 -> 생성불가";
+                toolStripStatusLabel1.Text = "이름의 첫 문자가 공백, 숫자인 경우는 생성할 수 없습니다!";
+            }
+
+            if (whatt == 0)
+            {
+                for (int i = 0; i < TableNameTBox.Text.Length; i++)
+                {
+                    if (text[i] <='0' || text[i] >= '9')
+                    {
+                        if (text[i] <= 'A' || text[i] >= 'z')
+                        {
+                            toolStripStatusLabel1.Text = "테이블 이름으로 알파벳 이외의 문자가 포함될 수 없습니다.";
+                            OK_Button.Enabled = false;
+                            break;
+                        }
+                    }
+
+                }
             }
         }
+
 
     }
 }
