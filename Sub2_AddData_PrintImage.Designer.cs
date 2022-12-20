@@ -59,6 +59,7 @@
             this.ClientSize = new System.Drawing.Size(173, 70);
             this.Controls.Add(this.pointLabel);
             this.Controls.Add(this.pictureBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Sub2_AddData_PrintImage";
             this.Text = "범위 확인";
             this.Load += new System.EventHandler(this.Sub2_AddData_PrintImage_Load);

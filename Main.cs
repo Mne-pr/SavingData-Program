@@ -480,19 +480,27 @@ namespace Datas
                     //읽어지면 이미 있다는것. 수정작업으로
                     cmd = new SQLiteCommand("REPLACE INTO " + tableName
                         + " (ROWID, " + AddDataWindow.columnEnum + ") VALUES ("
-                        + rdr["rowid"] +", " + AddDataWindow.dataEnum + ");", conn);
+                        + rdr["rowid"] + ", " + AddDataWindow.dataEnum + ");", conn);
                     cmd.ExecuteNonQuery(); PrintSQLSub();
                     aboutMainStatus.Text = AddDataWindow.columns[0] + "-" + AddDataWindow.firstData + " : 행 갱신";
                 }
                 catch (Exception)
                 {
-                    //예외로 넘어와진다면 새로 추가만하면 됨
-                    cmd = new SQLiteCommand("INSERT INTO " + tableName
-                        + " (" + AddDataWindow.columnEnum + ") VALUES ("
-                        + AddDataWindow.dataEnum + ");", conn);
-                    cmd.ExecuteNonQuery(); PrintSQLSub();
-                    aboutMainStatus.Text = AddDataWindow.columns[0] + "-" + AddDataWindow.firstData + " : 행 생성";
+                    try
+                    {
+                        //예외로 넘어와진다면 새로 추가만하면 됨
+                        cmd = new SQLiteCommand("INSERT INTO " + tableName
+                            + " (" + AddDataWindow.columnEnum + ") VALUES ("
+                            + AddDataWindow.dataEnum + ");", conn);
+                        cmd.ExecuteNonQuery(); PrintSQLSub();
+                        aboutMainStatus.Text = AddDataWindow.columns[0] + "-" + AddDataWindow.firstData + " : 행 생성";
+                    }
+                    catch(Exception ex)
+                    {
+                        aboutMainStatus.Text = ex.ToString();
+                    }
                 }
+                    
             }
             else
             {

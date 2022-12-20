@@ -12,7 +12,9 @@ namespace Datas
 {
     public partial class Sub2_AddData_PrintImage : Form
     {
-        string path = "";
+        public string path = "";
+        public int ifloadfail = 0;
+
         ToolStripStatusLabel ownerStatusLabel = null;
         public Sub2_AddData_PrintImage(string path,ToolStripStatusLabel ownerStatus)
         {
@@ -28,15 +30,17 @@ namespace Datas
                 Image img = new Bitmap(path);
                 pictureBox1.Width = img.Width;
                 pictureBox1.Height = img.Height;
-                pointLabel.Top = pictureBox1.Height;
+                pointLabel.Top = pictureBox1.Height + 2;
                 pointLabel.Width = 100;
                 this.AutoSize = true;
 
                 this.Location = new Point(Owner.Right + 2, Owner.Location.Y + Owner.Height / 2 - this.Height / 2);
                 pictureBox1.Image = img;
+                ifloadfail = 0;
             }
             catch(Exception ex) 
             {
+                ifloadfail = 1;
                 ownerStatusLabel.Text = ex.Message;
                 this.Close();
             }
