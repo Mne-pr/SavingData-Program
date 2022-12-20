@@ -159,6 +159,7 @@ namespace Datas
                     tempCropImage = allImage.Clone(boxRect,allImage.PixelFormat);
                     //사진 자르기
                     getToOcr(tempCropImage, i);
+                    tempCropImage.Dispose();
                 }
                 dataEnum = dataEnum.Substring(0, dataEnum.Length - 2);
                 columnEnum = columnEnum.Substring(0, columnEnum.Length - 2);

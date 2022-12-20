@@ -171,6 +171,7 @@
             this.button2.TabIndex = 1;
             this.button2.Text = "뒤로-미완";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Visible = false;
             // 
             // button3
             // 
@@ -181,6 +182,7 @@
             this.button3.TabIndex = 2;
             this.button3.Text = "뒤로가기 시점 -미완";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Visible = false;
             // 
             // button4
             // 
@@ -191,6 +193,7 @@
             this.button4.TabIndex = 3;
             this.button4.Text = "저장-미완";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Visible = false;
             // 
             // tableLayoutPanel4
             // 
@@ -270,6 +273,7 @@
             this.button10.TabIndex = 5;
             this.button10.Text = "button10";
             this.button10.UseVisualStyleBackColor = true;
+            this.button10.Visible = false;
             // 
             // chDataBtn
             // 
