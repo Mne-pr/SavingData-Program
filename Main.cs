@@ -528,12 +528,12 @@ namespace Datas
                         if (item.Checked)
                         {
                             selectRow[number] = i;
-                            delThingsList += item.SubItems[2].Text + ", ";
+                            delThingsList += item.SubItems[2].Text + ",";
                             number++;
                         }
                         i++;
                     }
-                    delThingsList = delThingsList.Substring(0, delThingsList.Length - 2);
+                    delThingsList = delThingsList.Substring(0, delThingsList.Length - 1);
 
                     cmd = new SQLiteCommand("PRAGMA table_info('" + tableName + "');",conn);
                     rdr = cmd.ExecuteReader(); rdr.Read();
@@ -549,8 +549,8 @@ namespace Datas
                         {
                             cmd = new SQLiteCommand("DELETE FROM " + tableName + " WHERE " + firstColumn + " = '" + name + "';", conn);
                             cmd.ExecuteNonQuery();
+                            aboutMainStatus.Text = name + " 삭제";
                         }
-
                         PrintSQLSub();
                         aboutMainStatus.Text = "데이터 " + delThingsList + " - 삭제됨";
                     }
